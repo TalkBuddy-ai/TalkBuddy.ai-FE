@@ -2,7 +2,11 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
 
 ## Getting Started
 
-First, run the development server:
+First you need to clone the project using the url https://github.com/TalkBuddy-ai/TalkBuddy.ai-FE.git, then you need to install the dependencies by run:
+
+npm install
+
+run the development server:
 
 ```bash
 npm run dev
@@ -21,6 +25,18 @@ You can start editing the page by modifying `pages/index.tsx`. The page auto-upd
 The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
 
 This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+
+## Create a Build
+
+To create a build directory with a production build of your app to be ready for deployment run:
+
+npm run build
+
+## Check the ESLint errors
+
+To make code more consistent and avoiding bugs run:
+
+npm run lint
 
 ## Learn More
 
