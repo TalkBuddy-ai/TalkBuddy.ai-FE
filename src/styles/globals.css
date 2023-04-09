@@ -21,6 +21,9 @@
     rgba(255, 255, 255, 1),
     rgba(255, 255, 255, 0)
   );
+  --baseColor-rgb: 42, 153, 120;
+  --light-gray-rgb: 245, 245, 245;
+  --bold-font-weight: 700;
 
   --tile-start-rgb: 239, 245, 249;
   --tile-end-rgb: 228, 232, 233;
@@ -83,25 +86,4 @@ html,
 body {
   max-width: 100vw;
   overflow-x: hidden;
-}
-
-body {
-  color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
-}
-
-a {
-  color: inherit;
-  text-decoration: none;
-}
-
-@media (prefers-color-scheme: dark) {
-  html {
-    color-scheme: dark;
-  }
 }

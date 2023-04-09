@@ -1,0 +1,8 @@
+.header {
+    background-color: rgb(var(--baseColor-rgb));
+    height: 85px;
+    padding: 26px;
+    color: rgb(var(--light-gray-rgb));
+    font-size: 26px;
+    font-weight: var(--bold-font-weight);
+}
