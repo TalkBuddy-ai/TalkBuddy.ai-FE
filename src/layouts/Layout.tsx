@@ -1,13 +1,13 @@
-import Header from "./Header";
-import { Roboto_Serif } from "next/font/google";
+import Header from "../components/Header";
+import { Inter } from "next/font/google";
 
-const roboto = Roboto_Serif({
+const inter = Inter({
   subsets: ["latin"],
 });
 
 const Layout = ({ children }: any) => {
   return (
-    <main className={roboto.className}>
+    <main className={inter.className}>
       <Header />
       <div>{children}</div>
     </main>

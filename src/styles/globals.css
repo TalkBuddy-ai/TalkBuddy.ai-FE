@@ -21,8 +21,8 @@
     rgba(255, 255, 255, 1),
     rgba(255, 255, 255, 0)
   );
-  --baseColor-rgb: 42, 153, 120;
-  --light-gray-rgb: 245, 245, 245;
+  --baseColor: #2A9978;
+  --light-gray: #F5F5F5;
   --bold-font-weight: 700;
 
   --tile-start-rgb: 239, 245, 249;
