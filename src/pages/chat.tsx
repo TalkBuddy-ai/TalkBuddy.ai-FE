@@ -2,12 +2,19 @@ import { Select, Space } from "antd";
 import styles from "@/styles/Chat.module.css";
 import Conversation from "@/layouts/Conversation";
 import InputMsg from "@/components/Input";
+import { useState } from "react";
 
 const Chat = () => {
+  const [msg, setMsg] = useState("");
+
+  const sendMsg = (msg: string) => {
+    setMsg(msg);
+  };
+
   return (
     <div className={styles.main}>
       <div>
-        <Conversation />
+        <Conversation msg={msg} />
       </div>
       <Space
         size={"small"}
@@ -39,7 +46,7 @@ const Chat = () => {
             },
           ]}
         />
-        <InputMsg />
+        <InputMsg sendMsg={sendMsg} />
       </Space>
     </div>
   );

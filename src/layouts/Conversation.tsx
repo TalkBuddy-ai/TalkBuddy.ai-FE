@@ -3,7 +3,11 @@ import styles from "../styles/Conversation.module.css";
 import { UserOutlined } from "@ant-design/icons";
 import Message from "@/components/Message";
 
-const Conversation = () => {
+interface ConvProps {
+  msg: string;
+}
+
+const Conversation = (props: ConvProps) => {
   return (
     <div className={styles.container}>
       <Card
@@ -24,7 +28,7 @@ const Conversation = () => {
                   marginBottom: 10,
                 }}
               >
-                Hi there
+                {props.msg}
               </Tag>
             </Space>
             <Space>

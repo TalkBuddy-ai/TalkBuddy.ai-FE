@@ -3,12 +3,21 @@ import styles from "@/styles/Chat.module.css";
 import { AudioFilled, SendOutlined } from "@ant-design/icons";
 import { useState } from "react";
 
-const InputMsg = () => {
-  const [msg, setMsg] = useState("");
+interface InputProps {
+  sendMsg: (msg: string) => void;
+}
+
+const InputMsg = (props: InputProps) => {
   const [audioStatus, setStatus] = useState(false);
+  const [msg, setMsg] = useState("");
 
   const startRecording = () => {
     setStatus(!audioStatus);
+  };
+
+  const send = () => {
+    props.sendMsg(msg);
+    setMsg("");
   };
 
   return (
@@ -31,10 +40,7 @@ const InputMsg = () => {
                 color: audioStatus ? "Green" : "Black",
               }}
             />
-            <SendOutlined
-              onClick={() => alert(msg)}
-              style={{ fontSize: "18px" }}
-            />
+            <SendOutlined onClick={() => send()} style={{ fontSize: "18px" }} />
           </>
         }
       />
