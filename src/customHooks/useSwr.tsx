@@ -1,12 +1,12 @@
 import { BE_BASE_URL } from "@/utils/constants";
 import useSWR from 'swr'
 
-export const useFetch = ({ url, payload, options }: { url: string, payload: object, options?: object }) => {
+export const useFetch = ({ url, payload, options }: { url: string, payload?: object, options?: object }) => {
     const mainUrl = BE_BASE_URL + url;
     const method = payload ? 'POST' : 'GET';
     const fetcher = async () => {
         const headers = {
-            // Authorization: `Bearer ${getToken()}`
+            "Content-type": "application/json"
         };
         const options = {
             method,
@@ -21,7 +21,7 @@ export const useFetch = ({ url, payload, options }: { url: string, payload: obje
         revalidateOnFocus: false,
         revalidateOnReconnect: false,
     };
-    const { data, mutate, error, isValidating } = useSWR(url + method, fetcher, {
+    const { data, mutate, error, isValidating } = useSWR(mainUrl + method, fetcher, {
         ...defaultOptions,
         ...options,
     });
