@@ -11,14 +11,14 @@ const Conversation = (props: ConvProps) => {
   return (
     <div className={styles.container}>
       <Card
-        style={{ width: 630, height: 500 }}
+        style={{ width: 630, height: 530 }}
         bordered={false}
         className={styles.card}
       >
         {
           //for testing only, here we should call message component
           <>
-            <Space>
+            <Space size={"middle"} style={{ marginBottom: 10 }}>
               <Avatar icon={<UserOutlined />} />
               <Tag
                 style={{
@@ -31,7 +31,7 @@ const Conversation = (props: ConvProps) => {
                 {props.msg}
               </Tag>
             </Space>
-            <Space>
+            <Space size={"middle"}>
               <Avatar
                 style={{ backgroundColor: "#2A9978" }}
                 icon={<UserOutlined />}
