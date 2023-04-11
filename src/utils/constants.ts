@@ -1,3 +1,2 @@
-const BE_URL = 'http://localhost';
-const PORT = 5000;
-export const BE_BASE_URL = `${BE_URL}:${PORT}/api/v1/`;
+const BE_URL = 'https://talkbuddy-ai.onrender.com';
+export const BE_BASE_URL = `${BE_URL}/api/v1`;
