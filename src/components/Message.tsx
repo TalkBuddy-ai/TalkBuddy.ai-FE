@@ -1,5 +1,8 @@
 import { UserOutlined } from "@ant-design/icons";
-import { Avatar, Space, Tag } from "antd";
+import { Avatar, Space, Tag, Typography } from "antd";
+import Typewriter from "typewriter-effect";
+
+const { Paragraph } = Typography;
 
 interface MessageProps {
   message: { msg: string; type: string };
@@ -23,9 +26,23 @@ const Message = (props: MessageProps) => {
             width: 500,
             height: 30,
             marginBottom: 10,
+            fontSize: 15,
           }}
         >
-          {props.message.msg}
+          <Paragraph>
+            {props.message.type === "receiver" ? (
+              <Typewriter
+                onInit={(typewriter) => {
+                  typewriter
+                    .typeString(props.message.msg)
+                    .start()
+                    .pauseFor(1000);
+                }}
+              />
+            ) : (
+              props.message.msg
+            )}
+          </Paragraph>
         </Tag>
       </Space>
     </div>

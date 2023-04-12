@@ -22,7 +22,8 @@
     "react-speech-recognition": "^3.10.0",
     "styled-components": "^5.3.9",
     "swr": "^2.1.2",
-    "typescript": "5.0.3"
+    "typescript": "5.0.3",
+    "typewriter-effect": "^2.19.0"
   },
   "devDependencies": {
     "eslint-config-prettier": "^8.8.0"
