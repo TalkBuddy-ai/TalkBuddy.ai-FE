@@ -4,13 +4,16 @@ import Conversation from "@/layouts/Conversation";
 import InputMsg from "@/components/Input";
 import { useState } from "react";
 import LangSelect from "@/components/LangSelect";
+import { MessageType } from "@/utils/types";
 
 const Chat = () => {
-  const [messages, setMessages] = useState([{ msg: "", type: "" }]);
+  const [messages, setMessages] = useState([
+    { msg: "", type: MessageType.Sender },
+  ]);
   const [msg, setMsg] = useState("");
 
   const sendMsg = (msg: string) => {
-    setMessages([...messages, { msg: msg, type: "sender" }]);
+    setMessages([...messages, { msg: msg, type: MessageType.Sender }]);
     setMsg(msg);
   };
 

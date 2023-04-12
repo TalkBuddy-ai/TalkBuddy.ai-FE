@@ -1,3 +1,4 @@
+import { message } from "@/utils/types";
 import { UserOutlined } from "@ant-design/icons";
 import { Avatar, Space, Tag, Typography } from "antd";
 import Typewriter from "typewriter-effect";
@@ -5,7 +6,7 @@ import Typewriter from "typewriter-effect";
 const { Paragraph } = Typography;
 
 interface MessageProps {
-  message: { msg: string; type: string };
+  message: message;
 }
 
 const Message = (props: MessageProps) => {
