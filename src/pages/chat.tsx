@@ -1,4 +1,4 @@
-import { Select, Space } from "antd";
+import { Space } from "antd";
 import styles from "@/styles/Chat.module.css";
 import Conversation from "@/layouts/Conversation";
 import InputMsg from "@/components/Input";
@@ -6,16 +6,18 @@ import { useState } from "react";
 import LangSelect from "@/components/LangSelect";
 
 const Chat = () => {
+  const [messages, setMessages] = useState([{ msg: "", type: "" }]);
   const [msg, setMsg] = useState("");
 
   const sendMsg = (msg: string) => {
+    setMessages([...messages, { msg: msg, type: "sender" }]);
     setMsg(msg);
   };
 
   return (
     <div className={styles.main}>
       <div>
-        <Conversation msg={msg} />
+        <Conversation messages={messages} msg={msg} />
       </div>
       <Space
         size={"small"}
