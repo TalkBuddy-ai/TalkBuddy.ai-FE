@@ -20,7 +20,7 @@ const Chat = () => {
   return (
     <div className={styles.main}>
       <div>
-        <Conversation messages={messages} msg={msg} />
+        <Conversation messages={messages} setMessages={setMessages} msg={msg} />
       </div>
       <Space
         size={"small"}
