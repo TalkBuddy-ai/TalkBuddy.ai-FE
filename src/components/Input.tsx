@@ -30,6 +30,12 @@ const InputMsg = (props: InputProps) => {
         className={styles.input}
         value={msg}
         onChange={(e) => setMsg(e.target.value)}
+        onKeyPress={(e) => {
+          if (e.key === "Enter") {
+            props.sendMsg(msg);
+            setMsg("");
+          }
+        }}
         suffix={
           <>
             {" "}
