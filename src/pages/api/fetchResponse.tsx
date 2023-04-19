@@ -9,7 +9,7 @@ export const fetchResponse = async (url: string, msg: string) => {
       return res.data.message;
     })
     .catch((err) => {
-      console.log(err);
+      return err.response.data.success;
     });
   return response;
 };

@@ -15,6 +15,9 @@ const Conversation = (props: ConvProps) => {
   useEffect(() => {
     const fetchData = async () => {
       let response = await fetchResponse("/chats", props.msg);
+      if (!response) {
+        response = "Something went wrong. Try again.";
+      }
       props.setMessages([
         ...props.messages,
         { msg: response, type: MessageType.Receiver },
