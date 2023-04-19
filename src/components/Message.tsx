@@ -26,7 +26,7 @@ const StyledTag = styled((props) => <Tag {...props} />)`
 
 const StyledParagraph = styled((props) => <Paragraph {...props} />)`
   font-size: 15px;
-`
+`;
 
 const Message = (props: MessageProps) => {
   return (
@@ -37,6 +37,9 @@ const Message = (props: MessageProps) => {
           <StyledParagraph>
             {props.message.type === MessageType.Receiver ? (
               <Typewriter
+                options={{
+                  delay: 50,
+                }}
                 onInit={(typewriter) => {
                   typewriter
                     .typeString(props.message.msg)
