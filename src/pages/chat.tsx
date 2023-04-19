@@ -11,6 +11,7 @@ const Chat = () => {
     { msg: "", type: MessageType.Sender },
   ]);
   const [msg, setMsg] = useState("");
+  const [lang, setLang] = useState("");
 
   const sendMsg = (msg: string) => {
     setMessages([...messages, { msg: msg, type: MessageType.Sender }]);
@@ -27,8 +28,8 @@ const Chat = () => {
         direction="horizontal"
         style={{ width: "100%", justifyContent: "center" }}
       >
-        <LangSelect />
-        <InputMsg sendMsg={sendMsg} />
+        <LangSelect setLang={setLang} />
+        <InputMsg sendMsg={sendMsg} lang={lang} />
       </Space>
     </div>
   );
