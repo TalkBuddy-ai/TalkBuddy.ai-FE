@@ -1,0 +1,10 @@
+.container {
+    display: flex;
+    justify-content: center;
+    padding-bottom: 24px;
+}
+.card {
+    border-radius: var(--border-radius);
+    border: var(--border-info);
+    background-color: var(--light-gray);
+}

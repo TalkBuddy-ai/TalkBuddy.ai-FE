@@ -1,0 +1,14 @@
+.main {
+  padding-top: 24px;
+}
+.input {
+  border: var(--border-info);
+  border-radius: var(--border-radius);
+  width: 520px;
+  height: 33px;
+}
+.langSelect {
+  width: 100px;
+  border: var(--border-info);
+  border-radius: var(--border-radius);
+}
