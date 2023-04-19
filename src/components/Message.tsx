@@ -18,10 +18,15 @@ const StyledAvatar = styled((props) => <Avatar {...props} />)`
 const StyledTag = styled((props) => <Tag {...props} />)`
   background-color: ${(props) =>
     props.type === MessageType.Sender ? "white" : "#2A9978"};
-  width: 500px;
-  height: 30px;
   margin-bottom: 10px;
+  white-space: initial;
+  padding: 8px 8px 0;
+  font-size: 15px;
 `;
+
+const StyledParagraph = styled((props) => <Paragraph {...props} />)`
+  font-size: 15px;
+`
 
 const Message = (props: MessageProps) => {
   return (
@@ -29,7 +34,7 @@ const Message = (props: MessageProps) => {
       <Space size={"middle"} style={{ marginBottom: 10 }}>
         <StyledAvatar icon={<UserOutlined />} type={props.message.type} />
         <StyledTag type={props.message.type}>
-          <Paragraph>
+          <StyledParagraph>
             {props.message.type === MessageType.Receiver ? (
               <Typewriter
                 onInit={(typewriter) => {
@@ -42,7 +47,7 @@ const Message = (props: MessageProps) => {
             ) : (
               props.message.msg
             )}
-          </Paragraph>
+          </StyledParagraph>
         </StyledTag>
       </Space>
     </div>
