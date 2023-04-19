@@ -46,7 +46,7 @@ const InputMsg = (props: InputProps) => {
   };
   const stopHandle = () => {
     SpeechRecognition.stopListening();
-    //setMsg(transcript);
+    setMsg(transcript);
   };
 
   return (
