@@ -1,15 +1,15 @@
 import { BE_BASE_URL } from "@/utils/constants";
 import axios from "axios";
 
-export const fetchResponse = (url: string, msg: string, callback: any) => {
+export const fetchResponse = async (url: string, msg: string) => {
   const mainUrl = BE_BASE_URL + url;
-  axios
+  let response = axios
     .post(mainUrl, { prompt: msg })
-    .then((response) => {
-      console.log(response.data.message);
-      callback(response.data.message);
+    .then(async (res) => {
+      return res.data.message;
     })
     .catch((err) => {
       console.log(err);
     });
+  return response;
 };

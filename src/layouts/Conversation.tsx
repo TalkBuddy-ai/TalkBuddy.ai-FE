@@ -13,13 +13,15 @@ interface ConvProps {
 
 const Conversation = (props: ConvProps) => {
   useEffect(() => {
+    const fetchData = async () => {
+      let response = await fetchResponse("/chats", props.msg);
+      props.setMessages([
+        ...props.messages,
+        { msg: response, type: MessageType.Receiver },
+      ]);
+    };
     if (props.msg) {
-      fetchResponse("/chats", props.msg, (resp: any) => {
-        props.setMessages([
-          ...props.messages,
-          { msg: resp, type: MessageType.Receiver },
-        ]);
-      });
+      fetchData();
     }
   }, [props.msg]);
 
