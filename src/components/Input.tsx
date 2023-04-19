@@ -8,11 +8,11 @@ interface InputProps {
 }
 
 const InputMsg = (props: InputProps) => {
-  const [audioStatus, setStatus] = useState(false);
+  const [isRecording, setIsRecording] = useState(false);
   const [msg, setMsg] = useState("");
 
   const startRecording = () => {
-    setStatus(!audioStatus);
+    setIsRecording(!isRecording);
   };
 
   const send = () => {
@@ -43,7 +43,7 @@ const InputMsg = (props: InputProps) => {
               onClick={() => startRecording()}
               style={{
                 fontSize: "18px",
-                color: audioStatus ? "Green" : "Black",
+                color: isRecording ? "Green" : "Black",
               }}
             />
             <SendOutlined onClick={() => send()} style={{ fontSize: "18px" }} />
