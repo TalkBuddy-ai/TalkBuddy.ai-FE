@@ -31,7 +31,7 @@ const Conversation = (props: ConvProps) => {
   return (
     <div className={styles.container}>
       <Card
-        style={{ width: 630, height: 530 }}
+        style={{ width: 630, height: 530, overflowY: "auto" }}
         bordered={false}
         className={styles.card}
       >
