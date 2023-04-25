@@ -7,6 +7,8 @@ const LangSelect = () => {
       showSearch
       className={styles.langSelect}
       bordered={false}
+      defaultValue="en-US"
+      onChange={(value) => props.setLang(value)}
       placeholder="Select Language"
       optionFilterProp="children"
       filterOption={(input, option) => (option?.label ?? "").includes(input)}
