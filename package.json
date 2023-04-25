@@ -27,6 +27,8 @@
     "typewriter-effect": "^2.19.0"
   },
   "devDependencies": {
+    "@types/react-speech-recognition": "^3.9.2",
+    "@types/styled-components": "^5.1.26",
     "eslint-config-prettier": "^8.8.0"
   }
 }

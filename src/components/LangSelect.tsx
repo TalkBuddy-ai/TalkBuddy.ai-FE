@@ -1,12 +1,17 @@
 import { Select } from "antd";
 import styles from "../styles/Chat.module.css";
 
-const LangSelect = () => {
+interface LangProps {
+  setLang: (Language: string) => void;
+}
+
+const LangSelect = (props: LangProps) => {
   return (
     <Select
       showSearch
       className={styles.langSelect}
       bordered={false}
+      onChange={(value) => props.setLang(value)}
       placeholder="Select Language"
       optionFilterProp="children"
       filterOption={(input, option) => (option?.label ?? "").includes(input)}
@@ -17,11 +22,11 @@ const LangSelect = () => {
       }
       options={[
         {
-          value: "1",
+          value: "en-US",
           label: "English",
         },
         {
-          value: "2",
+          value: "ar-SA",
           label: "Arabic",
         },
       ]}
