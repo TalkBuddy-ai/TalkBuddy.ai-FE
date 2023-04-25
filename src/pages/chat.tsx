@@ -28,8 +28,8 @@ const Chat = () => {
         direction="horizontal"
         style={{ width: "100%", justifyContent: "center" }}
       >
-        <LangSelect />
-        <InputMsg sendMsg={sendMsg} />
+        <LangSelect setLang={setLang} />
+        <InputMsg sendMsg={sendMsg} lang={lang} />
       </Space>
     </div>
   );
