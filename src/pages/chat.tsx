@@ -11,7 +11,7 @@ const Chat = () => {
     { msg: "", type: MessageType.Sender },
   ]);
   const [msg, setMsg] = useState("");
-  const [lang, setLang] = useState("");
+  const [lang, setLang] = useState("en-US");
 
   const sendMsg = (msg: string) => {
     setMessages([...messages, { msg: msg, type: MessageType.Sender }]);

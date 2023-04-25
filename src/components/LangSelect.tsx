@@ -11,6 +11,7 @@ const LangSelect = (props: LangProps) => {
       showSearch
       className={styles.langSelect}
       bordered={false}
+      defaultValue="en-US"
       onChange={(value) => props.setLang(value)}
       placeholder="Select Language"
       optionFilterProp="children"
