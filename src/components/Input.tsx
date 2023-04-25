@@ -46,7 +46,8 @@ const InputMsg = (props: InputProps) => {
   };
   const stopHandle = () => {
     SpeechRecognition.stopListening();
-    setMsg(transcript);
+    const fullMessage = `${msg} ${transcript}`;
+    setMsg(fullMessage);
   };
 
   return (
@@ -57,7 +58,7 @@ const InputMsg = (props: InputProps) => {
         name="msg"
         placeholder="Send a message .."
         className={styles.input}
-        value={msg || transcript}
+        value={msg}
         onChange={(e) => setMsg(e.target.value)}
         onKeyPress={(e) => {
           if (e.key === "Enter") {
