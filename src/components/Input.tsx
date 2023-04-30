@@ -15,6 +15,7 @@ const InputMsg = (props: InputProps) => {
   const [isRecording, setIsRecording] = useState(false);
   const { transcript, resetTranscript } = useSpeechRecognition();
   const [msg, setMsg] = useState("");
+  const [text, setText] = useState("");
 
   useEffect(() => {
     if (isRecording) {
@@ -33,7 +34,12 @@ const InputMsg = (props: InputProps) => {
   };
 
   const send = () => {
-    props.sendMsg(msg);
+    if (isRecording) {
+      const fullMessage = `${msg}${transcript}`;
+      props.sendMsg(fullMessage);
+    } else {
+      props.sendMsg(msg);
+    }
     setMsg("");
     resetTranscript();
   };
@@ -46,7 +52,7 @@ const InputMsg = (props: InputProps) => {
   };
   const stopHandle = () => {
     SpeechRecognition.stopListening();
-    const fullMessage = `${msg} ${transcript}`;
+    const fullMessage = `${msg}${transcript}`;
     setMsg(fullMessage);
   };
 
@@ -58,7 +64,7 @@ const InputMsg = (props: InputProps) => {
         name="msg"
         placeholder="Send a message .."
         className={styles.input}
-        value={msg}
+        value={msg || transcript}
         onChange={(e) => setMsg(e.target.value)}
         onKeyPress={(e) => {
           if (e.key === "Enter") {
@@ -81,6 +87,7 @@ const InputMsg = (props: InputProps) => {
           </>
         }
       />
+      {transcript}
     </div>
   );
 };
