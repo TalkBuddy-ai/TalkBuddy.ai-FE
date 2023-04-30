@@ -15,7 +15,6 @@ const InputMsg = (props: InputProps) => {
   const [isRecording, setIsRecording] = useState(false);
   const { transcript, resetTranscript } = useSpeechRecognition();
   const [msg, setMsg] = useState("");
-  const [text, setText] = useState("");
 
   useEffect(() => {
     if (isRecording) {
@@ -87,7 +86,6 @@ const InputMsg = (props: InputProps) => {
           </>
         }
       />
-      {transcript}
     </div>
   );
 };
