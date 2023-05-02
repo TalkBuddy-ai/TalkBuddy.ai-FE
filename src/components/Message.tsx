@@ -17,15 +17,15 @@ const StyledAvatar = styled((props) => <Avatar {...props} />)`
 
 const StyledTag = styled((props) => <Tag {...props} />)`
   background-color: ${(props) =>
-    props.type === MessageType.Sender ? "white" : "#2A9978"};
-  margin-bottom: 10px;
+    props.type === MessageType.Sender ? "white" : "#e9f4f1"};
   white-space: initial;
-  padding: 8px 8px 0;
   font-size: 15px;
+  border: 0;
 `;
 
 const StyledParagraph = styled((props) => <Paragraph {...props} />)`
   font-size: 15px;
+  margin-bottom: 0px !important;
 `;
 
 const Message = (props: MessageProps) => {

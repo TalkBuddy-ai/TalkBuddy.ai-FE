@@ -1,4 +1,4 @@
-import { Card } from "antd";
+import { Card, List } from "antd";
 import styles from "../styles/Conversation.module.css";
 import Message from "@/components/Message";
 import { MessageType, message } from "@/utils/types";
@@ -30,16 +30,27 @@ const Conversation = (props: ConvProps) => {
 
   return (
     <div className={styles.container}>
-      <Card
+      <List
         style={{ width: 630, height: 530, overflowY: "auto" }}
-        bordered={false}
-        className={styles.card}
-      >
-        {props.messages.map((message, key) => {
-          if (message.msg) return <Message message={message} key={key} />;
-          return;
-        })}
-      </Card>
+        itemLayout="horizontal"
+        dataSource={props.messages}
+        renderItem={(item, key) => (
+          <>
+            {item.msg && (
+              <List.Item
+                style={{
+                  backgroundColor:
+                    item.type === MessageType.Sender ? "white" : "#e9f4f1",
+                  paddingLeft: "12px",
+                  borderBlockEnd: "1px solid #94ccbb",
+                }}
+              >
+                <Message message={item} key={key} />
+              </List.Item>
+            )}
+          </>
+        )}
+      />
     </div>
   );
 };
