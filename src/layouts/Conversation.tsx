@@ -4,7 +4,6 @@ import Message from "@/components/Message";
 import { MessageType, message } from "@/utils/types";
 import { useEffect, useState } from "react";
 import { fetchResponse } from "@/pages/api/fetchResponse";
-
 interface ConvProps {
   messages: message[];
   setMessages: (value: message[]) => void;
@@ -31,7 +30,7 @@ const Conversation = (props: ConvProps) => {
   return (
     <div className={styles.container}>
       <List
-        style={{ width: 630, height: 530, overflowY: "auto" }}
+        className={styles.chatWrapper}
         itemLayout="horizontal"
         dataSource={props.messages}
         renderItem={(item, key) => (

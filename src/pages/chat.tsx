@@ -26,7 +26,7 @@ const Chat = () => {
       <Space
         size={"small"}
         direction="horizontal"
-        style={{ width: "100%", justifyContent: "center" }}
+        style={{ width: "100%", justifyContent: "center", position: "absolute", bottom: "20px" }}
       >
         <LangSelect setLang={setLang} />
         <InputMsg sendMsg={sendMsg} lang={lang} />

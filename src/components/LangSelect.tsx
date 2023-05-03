@@ -18,7 +18,7 @@ const LangSelect = (props: LangProps) => {
       filterOption={(input, option) => (option?.label ?? "").includes(input)}
       filterSort={(optionA, optionB) =>
         (optionA?.label ?? "")
-          .toLowerCase()
+        .toLowerCase()
           .localeCompare((optionB?.label ?? "").toLowerCase())
       }
       options={[
@@ -30,7 +30,7 @@ const LangSelect = (props: LangProps) => {
           value: "ar-SA",
           label: "Arabic",
         },
-      ]}
+      ]} 
     />
   );
 };
