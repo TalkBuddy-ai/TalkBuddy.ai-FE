@@ -8,13 +8,14 @@ interface ConvProps {
   messages: message[];
   setMessages: (value: message[]) => void;
   msg: string;
-  setIsLoading: (value: boolean) => void;
+  setFinishLoading: (value: boolean) => void;
+  setFinishTyping: (value: boolean) => void;
 }
 
 const Conversation = (props: ConvProps) => {
   useEffect(() => {
     const fetchData = async () => {
-      props.setIsLoading(true);
+      props.setFinishLoading(false);
       try {
         let response = await fetchResponse("/chats", props.msg);
         if (!response) {
@@ -25,7 +26,7 @@ const Conversation = (props: ConvProps) => {
           { msg: response, type: MessageType.Receiver },
         ]);
       } finally {
-        props.setIsLoading(false);
+        props.setFinishLoading(true);
       }
     };
     if (props.msg) {
@@ -50,7 +51,11 @@ const Conversation = (props: ConvProps) => {
                   borderBlockEnd: "1px solid #94ccbb",
                 }}
               >
-                <Message message={item} key={key} />
+                <Message
+                  message={item}
+                  key={key}
+                  setFinishTyping={props.setFinishTyping}
+                />
               </List.Item>
             )}
           </>

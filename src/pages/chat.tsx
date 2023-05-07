@@ -12,7 +12,8 @@ const Chat = () => {
   ]);
   const [msg, setMsg] = useState("");
   const [lang, setLang] = useState("en-US");
-  const [isLoading, setIsLoading] = useState(false);
+  const [finishLoading, setFinishLoading] = useState(true);
+  const [finishTyping, setFinishTyping] = useState(true);
 
   const sendMsg = (msg: string) => {
     setMessages([...messages, { msg: msg, type: MessageType.Sender }]);
@@ -26,16 +27,27 @@ const Chat = () => {
           messages={messages}
           setMessages={setMessages}
           msg={msg}
-          setIsLoading={setIsLoading}
+          setFinishLoading={setFinishLoading}
+          setFinishTyping={setFinishTyping}
         />
       </div>
       <Space
         size={"small"}
         direction="horizontal"
-        style={{ width: "100%", justifyContent: "center", position: "absolute", bottom: "20px" }}
+        style={{
+          width: "100%",
+          justifyContent: "center",
+          position: "absolute",
+          bottom: "20px",
+        }}
       >
         <LangSelect setLang={setLang} />
-        <InputMsg sendMsg={sendMsg} lang={lang} isLoading={isLoading} />
+        <InputMsg
+          sendMsg={sendMsg}
+          lang={lang}
+          finishLoading={finishLoading}
+          finishTyping={finishTyping}
+        />
       </Space>
     </div>
   );

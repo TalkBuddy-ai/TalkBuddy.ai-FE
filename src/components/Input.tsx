@@ -9,7 +9,8 @@ import SpeechRecognition, {
 interface InputProps {
   sendMsg: (msg: string) => void;
   lang: string;
-  isLoading: boolean;
+  finishLoading: boolean;
+  finishTyping: boolean;
 }
 
 const InputMsg = (props: InputProps) => {
@@ -84,7 +85,7 @@ const InputMsg = (props: InputProps) => {
                 color: isRecording ? "Green" : "Black",
               }}
             />
-            {!props.isLoading ? (
+            {props.finishTyping && props.finishLoading ? (
               <SendOutlined
                 onClick={() => send()}
                 style={{ fontSize: "20px" }}
