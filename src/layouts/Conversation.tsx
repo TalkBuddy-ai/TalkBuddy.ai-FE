@@ -8,19 +8,25 @@ interface ConvProps {
   messages: message[];
   setMessages: (value: message[]) => void;
   msg: string;
+  setIsLoading: (value: boolean) => void;
 }
 
 const Conversation = (props: ConvProps) => {
   useEffect(() => {
     const fetchData = async () => {
-      let response = await fetchResponse("/chats", props.msg);
-      if (!response) {
-        response = "Something went wrong. Try again.";
+      props.setIsLoading(true);
+      try {
+        let response = await fetchResponse("/chats", props.msg);
+        if (!response) {
+          response = "Something went wrong. Try again.";
+        }
+        props.setMessages([
+          ...props.messages,
+          { msg: response, type: MessageType.Receiver },
+        ]);
+      } finally {
+        props.setIsLoading(false);
       }
-      props.setMessages([
-        ...props.messages,
-        { msg: response, type: MessageType.Receiver },
-      ]);
     };
     if (props.msg) {
       fetchData();
