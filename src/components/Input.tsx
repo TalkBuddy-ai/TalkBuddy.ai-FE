@@ -15,6 +15,7 @@ interface InputProps {
 
 const InputMsg = (props: InputProps) => {
   const [isRecording, setIsRecording] = useState(false);
+  const [recorded, setRecorded] = useState(false);
   const { transcript, resetTranscript } = useSpeechRecognition();
   const [msg, setMsg] = useState("");
 
@@ -43,6 +44,7 @@ const InputMsg = (props: InputProps) => {
     }
     setMsg("");
     resetTranscript();
+    setRecorded(false);
   };
 
   const handleListing = () => {
@@ -53,6 +55,9 @@ const InputMsg = (props: InputProps) => {
   };
   const stopHandle = () => {
     SpeechRecognition.stopListening();
+    if (transcript) {
+      setRecorded(true);
+    }
     const fullMessage = `${msg}${transcript}`;
     setMsg(fullMessage);
   };
@@ -65,26 +70,28 @@ const InputMsg = (props: InputProps) => {
         name="msg"
         placeholder="Send a message .."
         className={styles.input}
-        value={msg || transcript}
+        value={isRecording ? `${msg}${transcript}` : msg}
         onChange={(e) => setMsg(e.target.value)}
         onKeyPress={(e) => {
           if (e.key === "Enter") {
             props.sendMsg(msg);
             setMsg("");
             resetTranscript();
+            setRecorded(false);
           }
         }}
         suffix={
           <>
-            {" "}
-            <AudioFilled
-              onClick={() => handleRecording()}
-              style={{
-                fontSize: "20px",
-                marginRight: "10px",
-                color: isRecording ? "Green" : "Black",
-              }}
-            />
+            {!recorded && (
+              <AudioFilled
+                onClick={() => handleRecording()}
+                style={{
+                  fontSize: "20px",
+                  marginRight: "10px",
+                  color: isRecording ? "Green" : "Black",
+                }}
+              />
+            )}
             {props.finishTyping && props.finishLoading ? (
               <SendOutlined
                 onClick={() => send()}
