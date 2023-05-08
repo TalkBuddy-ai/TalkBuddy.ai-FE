@@ -24,8 +24,7 @@
     "react-speech-recognition": "^3.10.0",
     "styled-components": "^5.3.9",
     "swr": "^2.1.2",
-    "typescript": "5.0.3",
-    "typewriter-effect": "^2.19.0"
+    "typescript": "5.0.3"
   },
   "devDependencies": {
     "@types/react-speech-recognition": "^3.9.2",
