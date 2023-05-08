@@ -1,10 +1,6 @@
 import { Input } from "antd";
 import styles from "@/styles/Chat.module.css";
-import {
-  AudioFilled,
-  RightCircleFilled,
-  SendOutlined,
-} from "@ant-design/icons";
+import { AudioFilled, SendOutlined, LoadingOutlined } from "@ant-design/icons";
 import { useEffect, useState } from "react";
 import SpeechRecognition, {
   useSpeechRecognition,
@@ -13,6 +9,8 @@ import SpeechRecognition, {
 interface InputProps {
   sendMsg: (msg: string) => void;
   lang: string;
+  finishLoading: boolean;
+  finishTyping: boolean;
 }
 
 const InputMsg = (props: InputProps) => {
@@ -94,7 +92,14 @@ const InputMsg = (props: InputProps) => {
                 }}
               />
             )}
-            <SendOutlined onClick={() => send()} style={{ fontSize: "20px" }} />
+            {props.finishTyping && props.finishLoading ? (
+              <SendOutlined
+                onClick={() => send()}
+                style={{ fontSize: "20px" }}
+              />
+            ) : (
+              <LoadingOutlined style={{ fontSize: "20px" }} />
+            )}
           </>
         }
       />
