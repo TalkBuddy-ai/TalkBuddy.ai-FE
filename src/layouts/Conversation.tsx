@@ -19,7 +19,7 @@ const Conversation = (props: ConvProps) => {
       }
       props.setMessages([
         ...props.messages,
-        { msg: response, type: MessageType.Receiver },
+        { msg: processMessage(response), type: MessageType.Receiver },
       ]);
     };
     if (props.msg) {
@@ -27,6 +27,10 @@ const Conversation = (props: ConvProps) => {
     }
   }, [props.msg]);
 
+  const processMessage = (message: string) => {
+    return message.replaceAll(new RegExp('\r?\n','g'), "<br />");
+  };
+  
   return (
     <div className={styles.container}>
       <List
