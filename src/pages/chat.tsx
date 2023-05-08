@@ -11,22 +11,34 @@ const Chat = () => {
     { msg: "", type: MessageType.Sender },
   ]);
   const [msg, setMsg] = useState("");
+  const [count, setCount] = useState(0);
   const [lang, setLang] = useState("en-US");
 
   const sendMsg = (msg: string) => {
     setMessages([...messages, { msg: msg, type: MessageType.Sender }]);
     setMsg(msg);
+    setCount(count + 1);
   };
 
   return (
     <div className={styles.main}>
       <div>
-        <Conversation messages={messages} setMessages={setMessages} msg={msg} />
+        <Conversation
+          messages={messages}
+          setMessages={setMessages}
+          msg={msg}
+          count={count}
+        />
       </div>
       <Space
         size={"small"}
         direction="horizontal"
-        style={{ width: "100%", justifyContent: "center", position: "absolute", bottom: "20px" }}
+        style={{
+          width: "100%",
+          justifyContent: "center",
+          position: "absolute",
+          bottom: "20px",
+        }}
       >
         <LangSelect setLang={setLang} />
         <InputMsg sendMsg={sendMsg} lang={lang} />
