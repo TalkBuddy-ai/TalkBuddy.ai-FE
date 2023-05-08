@@ -1,6 +1,6 @@
 import { Input } from "antd";
 import styles from "@/styles/Chat.module.css";
-import { AudioFilled, SendOutlined, LoadingOutlined } from "@ant-design/icons";
+import { AudioFilled, SendOutlined, LoadingOutlined, CloseOutlined } from "@ant-design/icons";
 import { useEffect, useState } from "react";
 import SpeechRecognition, {
   useSpeechRecognition,
@@ -35,6 +35,12 @@ const InputMsg = (props: InputProps) => {
     }
   };
 
+  const handleDelete = () => {
+    setMsg("");
+    resetTranscript();
+    setRecorded(false);
+  }
+
   const send = () => {
     if (isRecording) {
       const fullMessage = `${msg}${transcript}`;
@@ -62,6 +68,15 @@ const InputMsg = (props: InputProps) => {
     setMsg(fullMessage);
   };
 
+  const handleChange = (e: any) => {
+    setMsg(e.target.value)
+    if(!e.target.value) {
+    setMsg("");
+    resetTranscript();
+    setRecorded(false);
+    }
+  }
+
   return (
     <div>
       <Input
@@ -71,7 +86,7 @@ const InputMsg = (props: InputProps) => {
         placeholder="Send a message .."
         className={styles.input}
         value={isRecording ? `${msg}${transcript}` : msg}
-        onChange={(e) => setMsg(e.target.value)}
+        onChange={handleChange}
         onKeyPress={(e) => {
           if (e.key === "Enter") {
             props.sendMsg(msg);
@@ -82,7 +97,7 @@ const InputMsg = (props: InputProps) => {
         }}
         suffix={
           <>
-            {!recorded && (
+            {!recorded ? 
               <AudioFilled
                 onClick={() => handleRecording()}
                 style={{
@@ -90,8 +105,14 @@ const InputMsg = (props: InputProps) => {
                   marginRight: "10px",
                   color: isRecording ? "Green" : "Black",
                 }}
-              />
-            )}
+              /> :
+              <CloseOutlined  onClick={() => handleDelete()}
+              style={{
+                fontSize: "20px",
+                marginRight: "10px",
+                color: "red",
+              }}/>
+            }
             {props.finishTyping && props.finishLoading ? (
               <SendOutlined
                 onClick={() => send()}
