@@ -10,6 +10,8 @@ interface ConvProps {
   msg: string;
   setFinishLoading: (value: boolean) => void;
   setFinishTyping: (value: boolean) => void;
+  isStopGenerate: boolean;
+  setStopGenerate: (value: boolean) => void
 }
 
 const Conversation = (props: ConvProps) => {
@@ -58,7 +60,10 @@ const Conversation = (props: ConvProps) => {
                 <Message
                   message={item}
                   key={key}
+                  setFinishLoading={props.setFinishLoading}
                   setFinishTyping={props.setFinishTyping}
+                  isStopGenerate={props.isStopGenerate}
+                  setStopGenerate={props.setStopGenerate}
                 />
               </List.Item>
             )}

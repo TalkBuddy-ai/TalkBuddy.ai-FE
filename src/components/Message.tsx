@@ -1,7 +1,7 @@
 import { MessageType, message } from "@/utils/types";
 import { UserOutlined } from "@ant-design/icons";
 import { Avatar, Space, Tag, Typography } from "antd";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useTypewriter } from "react-simple-typewriter";
 import styled from "styled-components";
 
@@ -10,6 +10,9 @@ const { Paragraph } = Typography;
 interface MessageProps {
   message: message;
   setFinishTyping: (value: boolean) => void;
+  setFinishLoading: (value: boolean) => void;
+  isStopGenerate: boolean;
+  setStopGenerate: (value: boolean) => void
 }
 
 const StyledAvatar = styled((props) => <Avatar {...props} />)`
@@ -31,17 +34,31 @@ const StyledParagraph = styled((props) => <Paragraph {...props} />)`
 `;
 
 const Message = (props: MessageProps) => {
+  const [currentText, setCurrentText] = useState("");
   const [text, helper] = useTypewriter({
-    words: [props.message.msg],
+    words: !props.isStopGenerate ? [props.message?.msg] : [""],
     typeSpeed: 30,
     loop: 1,
-    onType: () => props.setFinishTyping(false),
+    onType: () => {
+      if (!props.isStopGenerate) {
+        props.setFinishTyping(false);
+        setCurrentText(text);
+      }
+    },
   });
   const { isDone } = helper;
 
   useEffect(() => {
     if (isDone) props.setFinishTyping(true);
   }, [isDone]);
+
+  useEffect(() => {
+    if (props.isStopGenerate) {
+      props.setFinishTyping(true);
+      props.setFinishLoading(true);
+      props.setStopGenerate(true);
+    }
+  }, [props.isStopGenerate]);
 
   return (
     <div>
@@ -50,7 +67,7 @@ const Message = (props: MessageProps) => {
         <StyledTag type={props.message.type}>
           <StyledParagraph>
             {props.message.type === MessageType.Receiver
-              ? text
+              ? currentText
               : props.message.msg}
           </StyledParagraph>
         </StyledTag>

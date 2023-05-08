@@ -1,4 +1,4 @@
-import { Space } from "antd";
+import { Button, Space } from "antd";
 import styles from "@/styles/Chat.module.css";
 import Conversation from "@/layouts/Conversation";
 import InputMsg from "@/components/Input";
@@ -14,10 +14,19 @@ const Chat = () => {
   const [lang, setLang] = useState("en-US");
   const [finishLoading, setFinishLoading] = useState(true);
   const [finishTyping, setFinishTyping] = useState(true);
-
+  const [isStopGenerateBtnClicked, setIsStopGenerateBtnClicked] = useState(false);
   const sendMsg = (msg: string) => {
     setMessages([...messages, { msg: msg, type: MessageType.Sender }]);
     setMsg(msg);
+    resetStopGenerateButton();
+  };
+
+  const showStopGenerateButton = () => {
+    return msg && finishLoading && !finishTyping && !isStopGenerateBtnClicked;
+  };
+
+  const resetStopGenerateButton = () => {
+    setIsStopGenerateBtnClicked(false);
   };
 
   return (
@@ -29,8 +38,19 @@ const Chat = () => {
           msg={msg}
           setFinishLoading={setFinishLoading}
           setFinishTyping={setFinishTyping}
+          isStopGenerate={isStopGenerateBtnClicked}
+          setStopGenerate={() => {}} 
         />
       </div>
+      {
+          showStopGenerateButton() && (
+          <Button
+            className={styles.stopGenerateBtn}
+            onClick={() => setIsStopGenerateBtnClicked(true)}>
+              Stop Generate
+          </Button>
+        )
+      }
       <Space
         size={"small"}
         direction="horizontal"
