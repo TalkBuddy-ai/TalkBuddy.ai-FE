@@ -1,4 +1,4 @@
-import { Space } from "antd";
+import { Button, Space } from "antd";
 import styles from "@/styles/Chat.module.css";
 import Conversation from "@/layouts/Conversation";
 import InputMsg from "@/components/Input";
@@ -13,11 +13,23 @@ const Chat = () => {
   const [msg, setMsg] = useState("");
   const [count, setCount] = useState(0);
   const [lang, setLang] = useState("en-US");
-
+  const [finishLoading, setFinishLoading] = useState(true);
+  const [finishTyping, setFinishTyping] = useState(true);
+  const [isStopGenerateBtnClicked, setIsStopGenerateBtnClicked] =
+    useState(false);
   const sendMsg = (msg: string) => {
     setMessages([...messages, { msg: msg, type: MessageType.Sender }]);
     setMsg(msg);
     setCount(count + 1);
+    resetStopGenerateButton();
+  };
+
+  const showStopGenerateButton = () => {
+    return msg && finishLoading && !finishTyping && !isStopGenerateBtnClicked;
+  };
+
+  const resetStopGenerateButton = () => {
+    setIsStopGenerateBtnClicked(false);
   };
 
   return (
@@ -28,8 +40,20 @@ const Chat = () => {
           setMessages={setMessages}
           msg={msg}
           count={count}
+          setFinishLoading={setFinishLoading}
+          setFinishTyping={setFinishTyping}
+          isStopGenerate={isStopGenerateBtnClicked}
+          setStopGenerate={() => {}}
         />
       </div>
+      {showStopGenerateButton() && (
+        <Button
+          className={styles.stopGenerateBtn}
+          onClick={() => setIsStopGenerateBtnClicked(true)}
+        >
+          Stop Generate
+        </Button>
+      )}
       <Space
         size={"small"}
         direction="horizontal"
@@ -41,7 +65,12 @@ const Chat = () => {
         }}
       >
         <LangSelect setLang={setLang} />
-        <InputMsg sendMsg={sendMsg} lang={lang} />
+        <InputMsg
+          sendMsg={sendMsg}
+          lang={lang}
+          finishLoading={finishLoading}
+          finishTyping={finishTyping}
+        />
       </Space>
     </div>
   );

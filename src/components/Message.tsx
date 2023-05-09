@@ -1,13 +1,18 @@
 import { MessageType, message } from "@/utils/types";
 import { UserOutlined } from "@ant-design/icons";
 import { Avatar, Space, Tag, Typography } from "antd";
-import Typewriter from "typewriter-effect";
+import { useEffect, useState } from "react";
+import { useTypewriter } from "react-simple-typewriter";
 import styled from "styled-components";
 
 const { Paragraph } = Typography;
 
 interface MessageProps {
   message: message;
+  setFinishTyping: (value: boolean) => void;
+  setFinishLoading: (value: boolean) => void;
+  isStopGenerate: boolean;
+  setStopGenerate: (value: boolean) => void
 }
 
 const StyledAvatar = styled((props) => <Avatar {...props} />)`
@@ -29,27 +34,41 @@ const StyledParagraph = styled((props) => <Paragraph {...props} />)`
 `;
 
 const Message = (props: MessageProps) => {
+  const [currentText, setCurrentText] = useState("");
+  const [text, helper] = useTypewriter({
+    words: !props.isStopGenerate ? [props.message?.msg] : [""],
+    typeSpeed: 30,
+    loop: 1,
+    onType: () => {
+      if (!props.isStopGenerate) {
+        props.setFinishTyping(false);
+        setCurrentText(text);
+      }
+    },
+  });
+  const { isDone } = helper;
+
+  useEffect(() => {
+    if (isDone) props.setFinishTyping(true);
+  }, [isDone]);
+
+  useEffect(() => {
+    if (props.isStopGenerate) {
+      props.setFinishTyping(true);
+      props.setFinishLoading(true);
+      props.setStopGenerate(true);
+    }
+  }, [props.isStopGenerate]);
+
   return (
     <div>
       <Space size={"middle"} style={{ marginBottom: 10 }}>
         <StyledAvatar icon={<UserOutlined />} type={props.message.type} />
         <StyledTag type={props.message.type}>
           <StyledParagraph>
-            {props.message.type === MessageType.Receiver ? (
-              <Typewriter
-                options={{
-                  delay: 50,
-                }}
-                onInit={(typewriter) => {
-                  typewriter
-                    .typeString(props.message.msg)
-                    .start()
-                    .pauseFor(1000);
-                }}
-              />
-            ) : (
-              props.message.msg
-            )}
+            {props.message.type === MessageType.Receiver
+              ? currentText
+              : props.message.msg}
           </StyledParagraph>
         </StyledTag>
       </Space>

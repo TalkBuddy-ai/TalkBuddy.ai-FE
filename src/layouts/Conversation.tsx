@@ -9,19 +9,28 @@ interface ConvProps {
   setMessages: (value: message[]) => void;
   msg: string;
   count: number;
+  setFinishLoading: (value: boolean) => void;
+  setFinishTyping: (value: boolean) => void;
+  isStopGenerate: boolean;
+  setStopGenerate: (value: boolean) => void;
 }
 
 const Conversation = (props: ConvProps) => {
   useEffect(() => {
     const fetchData = async () => {
-      let response = await fetchResponse("/chats", props.msg);
-      if (!response) {
-        response = "Something went wrong. Try again.";
+      props.setFinishLoading(false);
+      try {
+        let response = await fetchResponse("/chats", props.msg);
+        if (!response) {
+          response = "Something went wrong. Try again.";
+        }
+        props.setMessages([
+          ...props.messages,
+          { msg: processMessage(response), type: MessageType.Receiver },
+        ]);
+      } finally {
+        props.setFinishLoading(true);
       }
-      props.setMessages([
-        ...props.messages,
-        { msg: processMessage(response), type: MessageType.Receiver },
-      ]);
     };
     if (props.msg) {
       fetchData();
@@ -29,9 +38,9 @@ const Conversation = (props: ConvProps) => {
   }, [props.count]);
 
   const processMessage = (message: string) => {
-    return message.replaceAll(new RegExp('\r?\n','g'), "<br />");
+    return message.replaceAll(new RegExp("\r?\n", "g"), "<br />");
   };
-  
+
   return (
     <div className={styles.container}>
       <List
@@ -49,7 +58,14 @@ const Conversation = (props: ConvProps) => {
                   borderBlockEnd: "1px solid #94ccbb",
                 }}
               >
-                <Message message={item} key={key} />
+                <Message
+                  message={item}
+                  key={key}
+                  setFinishLoading={props.setFinishLoading}
+                  setFinishTyping={props.setFinishTyping}
+                  isStopGenerate={props.isStopGenerate}
+                  setStopGenerate={props.setStopGenerate}
+                />
               </List.Item>
             )}
           </>
