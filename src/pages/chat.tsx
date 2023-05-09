@@ -11,13 +11,16 @@ const Chat = () => {
     { msg: "", type: MessageType.Sender },
   ]);
   const [msg, setMsg] = useState("");
+  const [count, setCount] = useState(0);
   const [lang, setLang] = useState("en-US");
   const [finishLoading, setFinishLoading] = useState(true);
   const [finishTyping, setFinishTyping] = useState(true);
-  const [isStopGenerateBtnClicked, setIsStopGenerateBtnClicked] = useState(false);
+  const [isStopGenerateBtnClicked, setIsStopGenerateBtnClicked] =
+    useState(false);
   const sendMsg = (msg: string) => {
     setMessages([...messages, { msg: msg, type: MessageType.Sender }]);
     setMsg(msg);
+    setCount(count + 1);
     resetStopGenerateButton();
   };
 
@@ -36,21 +39,21 @@ const Chat = () => {
           messages={messages}
           setMessages={setMessages}
           msg={msg}
+          count={count}
           setFinishLoading={setFinishLoading}
           setFinishTyping={setFinishTyping}
           isStopGenerate={isStopGenerateBtnClicked}
-          setStopGenerate={() => {}} 
+          setStopGenerate={() => {}}
         />
       </div>
-      {
-          showStopGenerateButton() && (
-          <Button
-            className={styles.stopGenerateBtn}
-            onClick={() => setIsStopGenerateBtnClicked(true)}>
-              Stop Generate
-          </Button>
-        )
-      }
+      {showStopGenerateButton() && (
+        <Button
+          className={styles.stopGenerateBtn}
+          onClick={() => setIsStopGenerateBtnClicked(true)}
+        >
+          Stop Generate
+        </Button>
+      )}
       <Space
         size={"small"}
         direction="horizontal"

@@ -8,10 +8,11 @@ interface ConvProps {
   messages: message[];
   setMessages: (value: message[]) => void;
   msg: string;
+  count: number;
   setFinishLoading: (value: boolean) => void;
   setFinishTyping: (value: boolean) => void;
   isStopGenerate: boolean;
-  setStopGenerate: (value: boolean) => void
+  setStopGenerate: (value: boolean) => void;
 }
 
 const Conversation = (props: ConvProps) => {
@@ -34,7 +35,7 @@ const Conversation = (props: ConvProps) => {
     if (props.msg) {
       fetchData();
     }
-  }, [props.msg]);
+  }, [props.count]);
 
   const processMessage = (message: string) => {
     return message.replaceAll(new RegExp("\r?\n", "g"), "<br />");
