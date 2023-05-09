@@ -1,10 +1,17 @@
 import { Input } from "antd";
 import styles from "@/styles/Chat.module.css";
-import { AudioFilled, SendOutlined, LoadingOutlined, CloseOutlined } from "@ant-design/icons";
+import {
+  AudioFilled,
+  SendOutlined,
+  LoadingOutlined,
+  CloseOutlined,
+} from "@ant-design/icons";
 import { useEffect, useState } from "react";
+import { createSpeechlySpeechRecognition } from "@speechly/speech-recognition-polyfill";
 import SpeechRecognition, {
   useSpeechRecognition,
 } from "react-speech-recognition";
+import { APP_ID } from "@/utils/constants";
 
 interface InputProps {
   sendMsg: (msg: string) => void;
@@ -12,6 +19,9 @@ interface InputProps {
   finishLoading: boolean;
   finishTyping: boolean;
 }
+const appId = APP_ID;
+const SpeechlySpeechRecognition = createSpeechlySpeechRecognition(appId);
+SpeechRecognition.applyPolyfill(SpeechlySpeechRecognition);
 
 const InputMsg = (props: InputProps) => {
   const [isRecording, setIsRecording] = useState(false);
@@ -39,7 +49,7 @@ const InputMsg = (props: InputProps) => {
     setMsg("");
     resetTranscript();
     setRecorded(false);
-  }
+  };
 
   const send = () => {
     if (isRecording) {
@@ -69,13 +79,13 @@ const InputMsg = (props: InputProps) => {
   };
 
   const handleChange = (e: any) => {
-    setMsg(e.target.value)
-    if(!e.target.value) {
-    setMsg("");
-    resetTranscript();
-    setRecorded(false);
+    setMsg(e.target.value);
+    if (!e.target.value) {
+      setMsg("");
+      resetTranscript();
+      setRecorded(false);
     }
-  }
+  };
 
   return (
     <div>
@@ -97,7 +107,7 @@ const InputMsg = (props: InputProps) => {
         }}
         suffix={
           <>
-            {!recorded ? 
+            {!recorded ? (
               <AudioFilled
                 onClick={() => handleRecording()}
                 style={{
@@ -105,14 +115,17 @@ const InputMsg = (props: InputProps) => {
                   marginRight: "10px",
                   color: isRecording ? "Green" : "Black",
                 }}
-              /> :
-              <CloseOutlined  onClick={() => handleDelete()}
-              style={{
-                fontSize: "20px",
-                marginRight: "10px",
-                color: "red",
-              }}/>
-            }
+              />
+            ) : (
+              <CloseOutlined
+                onClick={() => handleDelete()}
+                style={{
+                  fontSize: "20px",
+                  marginRight: "10px",
+                  color: "red",
+                }}
+              />
+            )}
             {props.finishTyping && props.finishLoading ? (
               <SendOutlined
                 onClick={() => send()}
