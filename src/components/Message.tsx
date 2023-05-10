@@ -60,6 +60,14 @@ const Message = (props: MessageProps) => {
     }
   }, [props.isStopGenerate]);
 
+  const processText = (text: string) => {
+    const textArr = text.split("\n")
+    let text2 = []
+    for (let i of textArr) {
+      text2.push(<span>{i}</span>, <br />)
+    }
+    return text2;
+  }
   return (
     <div>
       <Space size={"middle"} style={{ marginBottom: 10 }}>
@@ -67,7 +75,7 @@ const Message = (props: MessageProps) => {
         <StyledTag type={props.message.type}>
           <StyledParagraph>
             {props.message.type === MessageType.Receiver
-              ? currentText
+              ? processText(currentText)
               : props.message.msg}
           </StyledParagraph>
         </StyledTag>

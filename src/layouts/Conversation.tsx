@@ -26,7 +26,7 @@ const Conversation = (props: ConvProps) => {
         }
         props.setMessages([
           ...props.messages,
-          { msg: processMessage(response), type: MessageType.Receiver },
+          { msg: response, type: MessageType.Receiver },
         ]);
       } finally {
         props.setFinishLoading(true);
@@ -36,10 +36,6 @@ const Conversation = (props: ConvProps) => {
       fetchData();
     }
   }, [props.count]);
-
-  const processMessage = (message: string) => {
-    return message.replaceAll(new RegExp("\r?\n", "g"), "<br />");
-  };
 
   return (
     <div className={styles.container}>
