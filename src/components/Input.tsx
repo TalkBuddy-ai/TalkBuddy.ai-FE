@@ -19,9 +19,6 @@ interface InputProps {
   finishLoading: boolean;
   finishTyping: boolean;
 }
-const appId = APP_ID;
-const SpeechlySpeechRecognition = createSpeechlySpeechRecognition(appId);
-SpeechRecognition.applyPolyfill(SpeechlySpeechRecognition);
 
 const InputMsg = (props: InputProps) => {
   const [isRecording, setIsRecording] = useState(false);
@@ -39,7 +36,8 @@ const InputMsg = (props: InputProps) => {
 
   const handleRecording = () => {
     if (!SpeechRecognition.browserSupportsSpeechRecognition()) {
-      alert("Browser does not support converting audio to text");
+      const SpeechlySpeechRecognition = createSpeechlySpeechRecognition(APP_ID);
+      SpeechRecognition.applyPolyfill(SpeechlySpeechRecognition);
     } else {
       setIsRecording(!isRecording);
     }
