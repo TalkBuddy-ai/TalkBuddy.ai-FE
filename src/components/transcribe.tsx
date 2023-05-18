@@ -105,7 +105,11 @@ const Home: NextPage = () => {
         <Button onClick={onTranscribe} type="primary" className={styles.button}>
           Transcribe
         </Button>
-        <Button onClick={generateMeetingMinutes} type="default" className={styles.button}>
+        <Button 
+          onClick={generateMeetingMinutes}
+          type="default"
+          disabled={!transcribedText}
+          className={styles.button}>
           Generate meeting minutes
         </Button>
       </div>
