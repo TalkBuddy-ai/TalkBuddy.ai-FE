@@ -20,8 +20,8 @@ const Home: NextPage = () => {
   const errorMessage = "Something went wrong, Try again later.";
 
   const onChangeFile = (target: any) => {
-    const file = target.files[0];
-    if (target.files) {
+    const file = target.files?.[0];
+    if (file) {
       // check if the size is less than 25MB
       if (file.size > 25 * 1024 * 1024) {
         alert("Please upload an audio file less than 25MB");
@@ -73,6 +73,7 @@ const Home: NextPage = () => {
           if (!response) {
             response = errorMessage;
           }
+          setGenerateLoading(false);
           setMeetingMinutes(response);
         });
       } else {
@@ -85,8 +86,6 @@ const Home: NextPage = () => {
       }
     } catch {
       setMeetingMinutes(errorMessage);
-    } finally {
-      setGenerateLoading(false);
     }
   }
 
@@ -137,7 +136,7 @@ const Home: NextPage = () => {
       {
         meetingMinutes && (
           <>
-            <h4>Minutes of meeting</h4>
+            <h4>Meeting Minutes</h4>
             <div className={styles.text}>
               {processText(meetingMinutes)}
             </div>
