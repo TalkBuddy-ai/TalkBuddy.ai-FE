@@ -3,7 +3,7 @@ import styles from "../styles/Conversation.module.css";
 import Message from "@/components/Message";
 import { MessageType, message } from "@/utils/types";
 import { useEffect, useState } from "react";
-import { fetchResponse } from "@/pages/api/fetchResponse";
+import { fetchResponse } from "@/pages/api/chat";
 interface ConvProps {
   messages: message[];
   setMessages: (value: message[]) => void;

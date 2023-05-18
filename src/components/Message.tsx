@@ -1,3 +1,4 @@
+import { processText } from "@/utils";
 import { MessageType, message } from "@/utils/types";
 import { UserOutlined } from "@ant-design/icons";
 import { Avatar, Space, Tag, Typography } from "antd";
@@ -60,14 +61,6 @@ const Message = (props: MessageProps) => {
     }
   }, [props.isStopGenerate]);
 
-  const processText = (text: string) => {
-    const textArr = text.split("\n")
-    let text2 = []
-    for (let i of textArr) {
-      text2.push(<span>{i}</span>, <br />)
-    }
-    return text2;
-  }
   return (
     <div>
       <Space size={"middle"} style={{ marginBottom: 10 }}>
